@@ -23,17 +23,9 @@ public class HelloApplication extends Application {
     public static void main(String[] args) {
         ConnectDB connectDB = new ConnectDB();
         Connection connection = connectDB.getConnection();
+        DatabaseInitializer.initializer(connection);
 
-        if(connection != null) {
-            try {
-                Statement statement = connection.createStatement();
-                String createTable = "CREATE TABLE IF NOT EXISTS views (id INTEGER PRIMARY KEY, name TEXT)";
-                statement.executeUpdate(createTable);
 
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
 //        launch();
     }
 }
