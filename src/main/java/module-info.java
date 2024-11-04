@@ -14,4 +14,6 @@ module org.example.seqfx {
 
     opens org.example.seqfx to javafx.fxml;
     exports org.example.seqfx;
+    exports org.example.seqfx.util;
+    opens org.example.seqfx.util to javafx.fxml;
 }

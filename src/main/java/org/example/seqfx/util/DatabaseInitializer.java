@@ -1,4 +1,4 @@
-package org.example.seqfx;
+package org.example.seqfx.util;
 
 import java.sql.Connection;
 import java.sql.SQLException;

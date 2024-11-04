@@ -4,11 +4,11 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import org.example.seqfx.util.ConnectDB;
+import org.example.seqfx.util.DatabaseInitializer;
 
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.Statement;
 
 public class HelloApplication extends Application {
     @Override
