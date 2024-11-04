@@ -6,6 +6,9 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 public class HelloApplication extends Application {
     @Override
@@ -18,6 +21,10 @@ public class HelloApplication extends Application {
     }
 
     public static void main(String[] args) {
+        ConnectDB connectDB = new ConnectDB();
+        Connection connection = connectDB.getConnection();
+        DatabaseInitializer.initializer(connection);
+
 
 //        launch();
     }
