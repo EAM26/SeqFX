@@ -4,10 +4,11 @@ public class Scene {
 
     private Long id;
     private String name;
+    private View view;
     private Integer number;
     private String description;
 
-    public Scene(Long id, String name) {
+    public Scene(Long id, String name, View view) {
         this.id = id;
         this.name = name;
     }
@@ -26,6 +27,14 @@ public class Scene {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public View getView() {
+        return view;
+    }
+
+    public void setView(View view) {
+        this.view = view;
     }
 
     public Integer getNumber() {
