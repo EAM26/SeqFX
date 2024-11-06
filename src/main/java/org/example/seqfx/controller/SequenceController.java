@@ -11,8 +11,12 @@ public class SequenceController {
     }
 
 
-    public Boolean createSequence(String name) {
+    public Boolean addSequence(String name) {
         return this.seqDAO.addSequence(name);
+    }
+
+    public Boolean deleteSequence(Long id) {
+        return this.seqDAO.deleteSequence(id);
     }
 
 }

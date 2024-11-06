@@ -9,7 +9,6 @@ import org.example.seqfx.util.ConnectDB;
 import org.example.seqfx.util.DatabaseInitializer;
 
 import java.io.IOException;
-import java.sql.Connection;
 
 
 public class HelloApplication extends Application {
@@ -26,8 +25,10 @@ public class HelloApplication extends Application {
     public static void main(String[] args) {
 //        Move DB initializer to start method
         DatabaseInitializer.initializer(ConnectDB.getConnection());
+
         SequenceController seqCon = new SequenceController();
-        seqCon.createSequence("testSequence");
+        seqCon.addSequence("testSequence");
+        seqCon.deleteSequence(1L);
 
 
 //        launch();

@@ -17,11 +17,23 @@ public class SequenceDAO {
 
     public Boolean addSequence(String name) {
         String sqlMessage = "INSERT INTO sequences (name) VALUES (?)";
-        try (PreparedStatement pstmt = connection.prepareStatement(sqlMessage);){
+        try (PreparedStatement pstmt = connection.prepareStatement(sqlMessage)){
             pstmt.setString(1, name);
             pstmt.executeUpdate();
             return true;
         } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public Boolean deleteSequence(Long id) {
+        String sqlMessage = "DELETE FROM sequences WHERE id = ?";
+        try (PreparedStatement pstmt = connection.prepareStatement(sqlMessage)) {
+            pstmt.setLong(1, id);
+            pstmt.executeUpdate();
+            return true;
+        } catch(SQLException e) {
             e.printStackTrace();
             return false;
         }
