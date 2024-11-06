@@ -17,7 +17,7 @@ public class DatabaseInitializer {
     private static void setupSequenceTable(Connection connection) {
         try {
             Statement statement = connection.createStatement();
-            String createTable = "CREATE TABLE IF NOT EXISTS sequences (id INTEGER PRIMARY KEY, name TEXT)";
+            String createTable = "CREATE TABLE IF NOT EXISTS sequences (id INTEGER PRIMARY KEY AUTOINCREMENT , name TEXT)";
             statement.executeUpdate(createTable);
             System.out.println("Sequence Table Created");
 
