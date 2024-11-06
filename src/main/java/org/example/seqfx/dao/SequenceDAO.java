@@ -1,6 +1,7 @@
 package org.example.seqfx.dao;
 
 import org.example.seqfx.model.Sequence;
+import org.example.seqfx.util.ConnectDB;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,14 +11,13 @@ public class SequenceDAO {
 
    private Connection connection;
 
-    public SequenceDAO(Connection connection) {
-        this.connection = connection;
+    public SequenceDAO() {
+        this.connection = ConnectDB.getConnection();
     }
 
     public Boolean addSequence(String name) {
-        try {
-            String sqlEntry = "INSERT INTO sequences (name) VALUES (?)";
-            PreparedStatement pstmt = connection.prepareStatement(sqlEntry);
+        String sqlMessage = "INSERT INTO sequences (name) VALUES (?)";
+        try (PreparedStatement pstmt = connection.prepareStatement(sqlMessage);){
             pstmt.setString(1, name);
             pstmt.executeUpdate();
             return true;

@@ -14,9 +14,6 @@ import java.sql.Connection;
 
 public class HelloApplication extends Application {
 
-
-    public static ConnectDB connectDB;
-
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
@@ -27,8 +24,8 @@ public class HelloApplication extends Application {
     }
 
     public static void main(String[] args) {
-        connectDB = new ConnectDB();
-        DatabaseInitializer.initializer(connectDB.getConnection());
+//        Move DB initializer to start method
+        DatabaseInitializer.initializer(ConnectDB.getConnection());
         SequenceController seqCon = new SequenceController();
         seqCon.createSequence("testSequence");
 
@@ -36,7 +33,8 @@ public class HelloApplication extends Application {
 //        launch();
     }
 
-    public static Connection getConnection() {
-        return connectDB.getConnection();
+   public void stop() throws Exception {
+        ConnectDB.closeConnection();
+        super.stop();
     }
 }
