@@ -10,6 +10,7 @@ import org.example.seqfx.util.ConnectDB;
 import org.example.seqfx.util.DatabaseInitializer;
 
 import java.io.IOException;
+import java.util.List;
 
 
 public class HelloApplication extends Application {
@@ -37,7 +38,11 @@ public class HelloApplication extends Application {
         Sequence seq = seqCon.getSequence(5L);
         System.out.println(seq.getId());
         System.out.println(seq.getName());
-
+//        Get all sequences
+        List<Sequence> allSequences = seqCon.getAllSequences();
+        for(Sequence sequence: allSequences) {
+            System.out.println(sequence.getId() + ": " + sequence.getName());
+        }
 
 
 

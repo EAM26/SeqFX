@@ -3,6 +3,8 @@ package org.example.seqfx.dao;
 import org.example.seqfx.model.Sequence;
 import org.example.seqfx.util.ConnectDB;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SequenceDAO {
 
@@ -10,6 +12,22 @@ public class SequenceDAO {
 
     public SequenceDAO() {
         this.connection = ConnectDB.getConnection();
+    }
+
+    public List<Sequence> getAllSequences() {
+        List <Sequence> sequences = new ArrayList<>();
+        String sqlMessage = "SELECT * FROM sequences";
+        try {
+            PreparedStatement pstmt = connection.prepareStatement(sqlMessage);
+            ResultSet resultSet = pstmt.executeQuery();
+            while(resultSet.next()) {
+                sequences.add(new Sequence(resultSet.getLong("id"), resultSet.getString("name")));
+            }
+            return sequences;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     public Sequence getSequence(Long id) {
