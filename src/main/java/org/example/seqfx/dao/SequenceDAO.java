@@ -8,7 +8,7 @@ import java.util.List;
 
 public class SequenceDAO {
 
-    private Connection connection;
+    private final Connection connection;
 
     public SequenceDAO() {
         this.connection = ConnectDB.getConnection();
@@ -17,9 +17,9 @@ public class SequenceDAO {
     public List<Sequence> getAllSequences() {
         List <Sequence> sequences = new ArrayList<>();
         String sqlMessage = "SELECT * FROM sequences";
-        try {
-            PreparedStatement pstmt = connection.prepareStatement(sqlMessage);
-            ResultSet resultSet = pstmt.executeQuery();
+        try (PreparedStatement pstmt = connection.prepareStatement(sqlMessage);
+             ResultSet resultSet = pstmt.executeQuery()){
+
             while(resultSet.next()) {
                 sequences.add(new Sequence(resultSet.getLong("id"), resultSet.getString("name")));
             }
@@ -32,18 +32,30 @@ public class SequenceDAO {
 
     public Sequence getSequence(Long id) {
         String sqlMessage = "SELECT * FROM sequences WHERE id = ?";
-        try {
-            PreparedStatement pstmt = connection.prepareStatement(sqlMessage);
+        try (PreparedStatement pstmt = connection.prepareStatement(sqlMessage)){
             pstmt.setLong(1, id);
-            ResultSet resultSet = pstmt.executeQuery();
-
-            if (resultSet.next()) {
-                return new Sequence(resultSet.getLong("id"), resultSet.getString("name"));
+            try(ResultSet resultSet = pstmt.executeQuery()) {
+                if (resultSet.next()) {
+                    return new Sequence(resultSet.getLong("id"), resultSet.getString("name"));
+                }
+                return null;
             }
-            return null;
         } catch (SQLException e) {
             e.printStackTrace();
             return null;
+        }
+    }
+
+    public Boolean updateSequence(Long id, String name) {
+        String sqlMessage = "UPDATE sequences SET name = ? where id = ?";
+        try(PreparedStatement pstmt = connection.prepareStatement(sqlMessage)) {
+            pstmt.setString(1, name);
+            pstmt.setLong(2, id);
+            pstmt.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
         }
     }
 

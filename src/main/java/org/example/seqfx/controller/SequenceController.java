@@ -22,6 +22,10 @@ public class SequenceController {
         return this.seqDAO.getAllSequences();
     }
 
+    public Boolean updateSequence(Long id, String name) {
+        return this.seqDAO.updateSequence(id, name);
+    }
+
     public Boolean addSequence(String name) {
         return this.seqDAO.addSequence(name);
     }

@@ -25,11 +25,11 @@ public class HelloApplication extends Application {
     }
 
     public static void main(String[] args) {
-//        Move DB initializer to start method
+//        Move DB initializer to start method when app is finished
         DatabaseInitializer.initializer(ConnectDB.getConnection());
 
         SequenceController seqCon = new SequenceController();
-
+//        TESTING CRUD METHODS
 //        ADD sequence
         seqCon.addSequence("testSequence2");
 //        Delete sequence
@@ -38,6 +38,8 @@ public class HelloApplication extends Application {
         Sequence seq = seqCon.getSequence(5L);
         System.out.println(seq.getId());
         System.out.println(seq.getName());
+//        Update sequence
+        seqCon.updateSequence(99L, "Updated Sequence");
 //        Get all sequences
         List<Sequence> allSequences = seqCon.getAllSequences();
         for(Sequence sequence: allSequences) {
