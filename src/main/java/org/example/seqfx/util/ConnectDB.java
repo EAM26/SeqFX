@@ -6,30 +6,32 @@ import java.sql.SQLException;
 
 public class ConnectDB {
 
-    private Connection connection;
+    private static final String URL = "jdbc:sqlite:mydb.db";
+    private static Connection connection;
 
-    public ConnectDB() {
-        String url = "jdbc:sqlite:mydb.db";
-        try {
-            connection = DriverManager.getConnection(url);
-            System.out.println("Connection Successful");
-        } catch(SQLException e) {
-            System.out.println("Error Connecting to Database");
-            e.printStackTrace();
-        }
+    private ConnectDB() {
     }
 
-    public Connection getConnection() {
+    public static Connection getConnection() {
+        if (connection == null) {
+            try {
+                connection = DriverManager.getConnection(URL);
+                System.out.println("Connection Successful");
+            } catch (SQLException e) {
+                System.out.println("Error Connecting to Database");
+                e.printStackTrace();
+            }
+        }
         return connection;
     }
 
-    public void closeConnection() {
+    public static void closeConnection() {
         try {
-            if(connection != null) {
+            if (connection != null) {
                 connection.close();
                 System.out.println("Connection Closed");
             }
-        } catch(SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
