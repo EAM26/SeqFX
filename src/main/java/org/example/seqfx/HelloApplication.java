@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.example.seqfx.controller.SequenceController;
+import org.example.seqfx.model.Sequence;
 import org.example.seqfx.util.ConnectDB;
 import org.example.seqfx.util.DatabaseInitializer;
 
@@ -27,8 +28,19 @@ public class HelloApplication extends Application {
         DatabaseInitializer.initializer(ConnectDB.getConnection());
 
         SequenceController seqCon = new SequenceController();
-        seqCon.addSequence("testSequence");
+
+//        ADD sequence
+        seqCon.addSequence("testSequence2");
+//        Delete sequence
         seqCon.deleteSequence(1L);
+//        Get sequence
+        Sequence seq = seqCon.getSequence(5L);
+        System.out.println(seq.getId());
+        System.out.println(seq.getName());
+
+
+
+
 
 
 //        launch();

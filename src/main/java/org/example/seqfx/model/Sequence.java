@@ -41,7 +41,8 @@ public class Sequence {
         this.views = views;
     }
 
-    public Sequence(String name) {
+    public Sequence(Long id, String name) {
+        this.id =id;
         this.name = name;
     }
 

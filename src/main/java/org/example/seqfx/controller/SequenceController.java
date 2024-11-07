@@ -1,6 +1,7 @@
 package org.example.seqfx.controller;
 
 import org.example.seqfx.dao.SequenceDAO;
+import org.example.seqfx.model.Sequence;
 
 public class SequenceController {
 
@@ -11,6 +12,9 @@ public class SequenceController {
     }
 
 
+    public Sequence getSequence(Long id) {
+        return this.seqDAO.getSequence(id);
+    }
     public Boolean addSequence(String name) {
         return this.seqDAO.addSequence(name);
     }
