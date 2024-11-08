@@ -60,11 +60,15 @@ public class HelloApplication extends Application {
         System.out.println("testView name: " + testView.getName());
         System.out.println("testView sequence name: " + testView.getSequence().getName());
 
+//        Delete view
+        System.out.println(viewCon.deleteView(2L));
+
 //        Get all views
         List<View> views = viewCon.getAllViews();
         for(View view: views) {
-            System.out.println(view.getName());
+            System.out.println(view.getId() + ": " + view.getName() + "with seq " + view.getSequence().getName());
         }
+
 
 
 

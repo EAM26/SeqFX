@@ -78,4 +78,16 @@ public class ViewDAO {
             return null;
         }
     }
+
+    public Boolean deleteView(Long id) {
+        String sqlMessage = "DELETE FROM views WHERE id = ?";
+        try(PreparedStatement pstmt = connection.prepareStatement(sqlMessage)) {
+            pstmt.setLong(1, id);
+            pstmt.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }
