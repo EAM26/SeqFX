@@ -10,6 +10,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ViewDAO {
 
@@ -50,6 +52,28 @@ public class ViewDAO {
                 return null;
             }
         } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public List<View> getAllViews() {
+        List<View> views = new ArrayList<>();
+        String sqlMessage = "SELECT * FROM views";
+
+        try(PreparedStatement pstmt = connection.prepareStatement(sqlMessage)) {
+            ResultSet resultSet = pstmt.executeQuery();
+
+            while(resultSet.next()) {
+                Long id = resultSet.getLong("id");
+                String name = resultSet.getString("name");
+
+                Long sequence_id = resultSet.getLong("sequence_id");
+                Sequence sequence = sequenceController.getSequence(sequence_id);
+                views.add(new View(id, name, sequence));
+            }
+            return views;
+        }catch (SQLException e) {
             e.printStackTrace();
             return null;
         }

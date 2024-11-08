@@ -46,6 +46,7 @@ public class SequenceDAO {
         }
     }
 
+
     public Boolean updateSequence(Long id, String name) {
         String sqlMessage = "UPDATE sequences SET name = ? where id = ?";
         try(PreparedStatement pstmt = connection.prepareStatement(sqlMessage)) {
