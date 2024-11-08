@@ -25,7 +25,7 @@ public class ViewDAO {
 
     public Boolean createView(String name, Long seqId) {
         String sqlMessage = "INSERT INTO views (name, sequence_id) VALUES(?, ?)";
-        try(PreparedStatement pstmt = connection.prepareStatement(sqlMessage)) {
+        try (PreparedStatement pstmt = connection.prepareStatement(sqlMessage)) {
             pstmt.setString(1, name);
             pstmt.setLong(2, seqId);
             pstmt.executeUpdate();
@@ -38,11 +38,11 @@ public class ViewDAO {
 
     public View getView(Long id) {
         String sqlMessage = "SELECT * FROM views WHERE id = ?";
-        try(PreparedStatement pstmt = connection.prepareStatement(sqlMessage)) {
+        try (PreparedStatement pstmt = connection.prepareStatement(sqlMessage)) {
             pstmt.setLong(1, id);
 
-            try(ResultSet resultSet = pstmt.executeQuery()){
-                if(resultSet.next()) {
+            try (ResultSet resultSet = pstmt.executeQuery()) {
+                if (resultSet.next()) {
                     Long viewId = resultSet.getLong("id");
                     String viewName = resultSet.getString("name");
                     Long sequence_id = resultSet.getLong("sequence_id");
@@ -61,10 +61,10 @@ public class ViewDAO {
         List<View> views = new ArrayList<>();
         String sqlMessage = "SELECT * FROM views";
 
-        try(PreparedStatement pstmt = connection.prepareStatement(sqlMessage)) {
+        try (PreparedStatement pstmt = connection.prepareStatement(sqlMessage)) {
             ResultSet resultSet = pstmt.executeQuery();
 
-            while(resultSet.next()) {
+            while (resultSet.next()) {
                 Long id = resultSet.getLong("id");
                 String name = resultSet.getString("name");
 
@@ -73,7 +73,7 @@ public class ViewDAO {
                 views.add(new View(id, name, sequence));
             }
             return views;
-        }catch (SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
             return null;
         }
@@ -81,8 +81,25 @@ public class ViewDAO {
 
     public Boolean deleteView(Long id) {
         String sqlMessage = "DELETE FROM views WHERE id = ?";
-        try(PreparedStatement pstmt = connection.prepareStatement(sqlMessage)) {
+        try (PreparedStatement pstmt = connection.prepareStatement(sqlMessage)) {
             pstmt.setLong(1, id);
+            pstmt.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public Boolean updateView(Long id, String name, Long seqId) {
+        if (sequenceController.getSequence(seqId) == null) {
+            return false;
+        }
+        String sqlMessage = "UPDATE views SET name = ?, sequence_id = ? WHERE id = ?";
+        try (PreparedStatement pstmt = connection.prepareStatement(sqlMessage)) {
+            pstmt.setString(1, name);
+            pstmt.setLong(2, seqId);
+            pstmt.setLong(3, id);
             pstmt.executeUpdate();
             return true;
         } catch (SQLException e) {

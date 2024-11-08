@@ -56,12 +56,15 @@ public class HelloApplication extends Application {
 //        System.out.println(viewCon.createView("cam-1", 100L));
 
 //        Get view
-        View testView = viewCon.getView(2L);
+        View testView = viewCon.getView(3L);
         System.out.println("testView name: " + testView.getName());
         System.out.println("testView sequence name: " + testView.getSequence().getName());
 
 //        Delete view
         System.out.println(viewCon.deleteView(2L));
+
+//        Update view
+        viewCon.updateView(4L, "new cam", 5L);
 
 //        Get all views
         List<View> views = viewCon.getAllViews();

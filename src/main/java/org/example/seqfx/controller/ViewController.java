@@ -10,11 +10,23 @@ public class ViewController {
     public final SequenceController sequenceController = new SequenceController();
     public final ViewDAO viewDAO = new ViewDAO(sequenceController);
 
-    public Boolean createView(String name, Long seqId) {return this.viewDAO.createView(name, seqId);}
+    public Boolean createView(String name, Long seqId) {
+        return this.viewDAO.createView(name, seqId);
+    }
 
-    public View getView(Long id) {return this.viewDAO.getView(id);}
+    public View getView(Long id) {
+        return this.viewDAO.getView(id);
+    }
 
-    public List<View> getAllViews() {return this.viewDAO.getAllViews();}
+    public List<View> getAllViews() {
+        return this.viewDAO.getAllViews();
+    }
 
-    public Boolean deleteView(Long id) {return this.viewDAO.deleteView(id);}
+    public Boolean updateView(Long id, String name, Long seqId) {
+        return this.viewDAO.updateView(id, name, seqId);
+    }
+
+    public Boolean deleteView(Long id) {
+        return this.viewDAO.deleteView(id);
+    }
 }
