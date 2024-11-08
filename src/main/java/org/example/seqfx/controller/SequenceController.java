@@ -22,13 +22,11 @@ public class SequenceController {
         return this.seqDAO.getAllSequences();
     }
 
-    public Boolean updateSequence(Long id, String name) {
-        return this.seqDAO.updateSequence(id, name);
+    public Boolean createSequence(String name) {
+        return this.seqDAO.createSequence(name);
     }
 
-    public Boolean addSequence(String name) {
-        return this.seqDAO.addSequence(name);
-    }
+    public Boolean updateSequence(Long id, String name) {return this.seqDAO.updateSequence(id, name);}
 
     public Boolean deleteSequence(Long id) {
         return this.seqDAO.deleteSequence(id);

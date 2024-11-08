@@ -7,10 +7,20 @@ import java.sql.Statement;
 public class DatabaseInitializer {
 
     public static void initializer(Connection connection) {
-        if(connection != null) {
+        if (connection != null) {
+            enableForeignKeys(connection);
             setupSequenceTable(connection);
             setupViewsTable(connection);
             setupSceneTable(connection);
+        }
+    }
+
+    private static void enableForeignKeys(Connection connection) {
+        try (Statement statement = connection.createStatement()) {
+            statement.executeUpdate("PRAGMA foreign_keys = ON");
+            System.out.println("Foreign Key Constraints Enabled");
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 
